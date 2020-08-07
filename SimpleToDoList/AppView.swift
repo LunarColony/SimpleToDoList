@@ -9,62 +9,54 @@
 import SwiftUI
 
 struct AppView: View {
+    @ObservedObject var task1 = Model()
 
-    var body: some View {
-        TaskListView(taskArray: ["Add a new task below ↓"], NewTask: "")
-    }
-}
-
-
-struct AppView_Previews: PreviewProvider {
-    static var previews: some View {
-        AppView()
-    }
-}
-
-struct TaskListView: View {
-    @State var taskArray = [String]()
-    @State var NewTask: String
-
+    @State var showNewTaskView = false
     var body: some View {
         NavigationView {
-            VStack {
-                Section {
-                    List(taskArray, id: \.self) { value in
-                        Section {
-                            Text(value)
-                        }
-                    }
-                    HStack {
-                        TextField("Add new task", text: $NewTask)
-                            .padding()
-                        Button("Save") {
-                            if self.taskArray.contains("Add a new task below ↓") {
-                                self.taskArray.remove(at: 0)
-                            }
-                            if self.NewTask.count > 0 {
-                                self.taskArray.append(self.NewTask)
-                                print(self.taskArray.count)
-                            }
-                        }
-                            .padding()
-                    }
-
+            Section {
+                List {
+                    Text("\(self.task1.taskName)")
                 }
-
-
-                    .animation(.default)
-                    .listStyle(GroupedListStyle())
-                    .environment(\.horizontalSizeClass, .regular)
-
-                    .navigationBarTitle("Tasks")
             }
-
+                .listStyle(GroupedListStyle())
+                .environment(\.horizontalSizeClass, .regular)
+                .navigationBarTitle("Tasks")
+                .navigationBarItems(trailing: Button(action: {
+                        self.showNewTaskView.toggle()
+                }) {
+                        Text("New Task")
+                    }
+                ).sheet(isPresented: $showNewTaskView) {
+                    NewTaskInfoView(newTask: self.task1.taskName, showNewTaskView: self.$showNewTaskView)
+            }
         }
     }
-
-    private func deleteItem(at indexSet: IndexSet) {
-        self.taskArray.remove(atOffsets: indexSet)
-    }
-
 }
+
+struct NewTaskInfoView: View {
+    @ObservedObject var dataModel = Model()
+
+    @State var newTask: String
+    @Binding var showNewTaskView: Bool
+    var body: some View {
+        NavigationView {
+            Section {
+                TextField("Task", text: $newTask)
+                    .padding()
+            }
+                .navigationBarTitle("Add new Task")
+                .navigationBarItems(trailing: Button(action: {
+                        self.dataModel.taskName = self.newTask
+                        self.showNewTaskView.toggle()
+                        print(self.newTask)
+                }) {
+                        Text("Save")
+                    }
+                )
+        }
+    }
+}
+
+
+
