@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E901A34324E081F50067C1D1 /* PriorityColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901A34224E081F50067C1D1 /* PriorityColors.swift */; };
 		E92AA5FC24D9C0890086E6D4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92AA5FB24D9C0890086E6D4 /* AppDelegate.swift */; };
 		E92AA5FE24D9C0890086E6D4 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92AA5FD24D9C0890086E6D4 /* SceneDelegate.swift */; };
 		E92AA60024D9C0890086E6D4 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92AA5FF24D9C0890086E6D4 /* ContentView.swift */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E901A34224E081F50067C1D1 /* PriorityColors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityColors.swift; sourceTree = "<group>"; };
 		E92AA5F824D9C0890086E6D4 /* SwiftUITasks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SwiftUITasks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E92AA5FB24D9C0890086E6D4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E92AA5FD24D9C0890086E6D4 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				E92AA5FD24D9C0890086E6D4 /* SceneDelegate.swift */,
 				E92AA5FF24D9C0890086E6D4 /* ContentView.swift */,
 				E92AA60F24D9C22E0086E6D4 /* AppView.swift */,
+				E901A34224E081F50067C1D1 /* PriorityColors.swift */,
 				E930941D24DCB0850065561E /* AppModel.swift */,
 				E92AA60124D9C08B0086E6D4 /* Assets.xcassets */,
 				E92AA60624D9C08B0086E6D4 /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E92AA61024D9C22E0086E6D4 /* AppView.swift in Sources */,
+				E901A34324E081F50067C1D1 /* PriorityColors.swift in Sources */,
 				E92AA5FC24D9C0890086E6D4 /* AppDelegate.swift in Sources */,
 				E92AA5FE24D9C0890086E6D4 /* SceneDelegate.swift in Sources */,
 				E930941E24DCB0850065561E /* AppModel.swift in Sources */,

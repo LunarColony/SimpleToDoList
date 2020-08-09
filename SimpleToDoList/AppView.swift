@@ -10,16 +10,29 @@ import SwiftUI
 
 struct AppView: View {
     @ObservedObject var data = Model()
-
+    var task = Model.Task()
+    let data2 = Model()
     @State var showViewTwo = false
+    func tester() {
+
+    }
+
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(data.arrayOfTask, id: \.self) { row in
+                    ForEach(data.arrayOfTask, id: \.taskName) { task in
                         HStack {
-                            PriorityCirleView()
-                            Text("\(row)")
+                            if task.priority == 0 {
+                                PriorityGreen()
+                            } else if task.priority == 1 {
+                                PriorityYellow()
+                            } else if task.priority == 2 {
+                                PriorityOrange()
+                            } else if task.priority == 3 {
+                                PriorityRed()
+                            }
+                            Text("\(task.taskName)")
                         }
                     }
                         .onDelete(perform: removeItems).animation(.default)
@@ -28,12 +41,13 @@ struct AppView: View {
                     .environment(\.horizontalSizeClass, .regular)
             }
                 .navigationBarTitle("Tasks")
-                .navigationBarItems(leading: EditButton()
-                    , trailing: Button(action: {
-                            self.showViewTwo.toggle()
+                .navigationBarItems(leading:
+                        EditButton().animation(.default),
+                    trailing: Button(action: {
+                        self.showViewTwo.toggle()
                     }) {
                         Text("New task")
-                        }.sheet(isPresented: $showViewTwo) {
+                    }.sheet(isPresented: $showViewTwo) {
                         ViewTwo(data: self.data, showViewTwo: self.$showViewTwo)
                     })
         }
@@ -58,28 +72,39 @@ struct ViewTwo: View {
     @State var newCatergory = ""
     @State var newPriorityLevel = ""
 
+    @State var defaultPriorityLevel = 1
+    @State var priorityTypes = ["low", "medium", "high", "critical"]
+
 
     @Binding var showViewTwo: Bool
     var body: some View {
         NavigationView {
             Form {
-                Section(header: Text("Add task information here")) {
+                Section(header: Text("Add task name")) {
 
                     TextField("Name", text: $newName)
                     /*
-                    This section will be implementated later on
-                    TextField("Catergory", text: $newCatergory)
-                    */
-                    TextField("Priority", text: $newPriorityLevel)
-
+                        This section will be implementated later on
+                        TextField("Catergory", text: $newCatergory)
+                        */
+                }
+                Section(header: Text("Select task priority")) {
+                    Picker("Priority Levels", selection: $defaultPriorityLevel) {
+                        ForEach(0..<priorityTypes.count) {
+                            Text(self.priorityTypes[$0])
+                        }
+                    }
+                        .pickerStyle(SegmentedPickerStyle())
                 }
             }
                 .navigationBarTitle("New task details")
                 .navigationBarItems(trailing:
                         Button("Save") {
+                            var task = Model.Task()
                             self.showViewTwo.toggle()
-                            self.data.taskName = self.newName
-                            self.data.arrayOfTask.append(self.newName)
+                            task.taskName = self.newName
+                            task.priority = self.defaultPriorityLevel
+                            self.data.arrayOfTask.append(task)
                     })
         }
     }

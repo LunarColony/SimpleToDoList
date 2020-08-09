@@ -26,9 +26,11 @@ enum Priority {
 
 
 class Model: ObservableObject {
-    @Published var taskName = ""
-    @Published var taskCategory = ""
-    @Published var priority = ""
+    struct Task {
+        var taskName = ""
+        var taskCategory = ""
+        var priority = 0
+    }
 
-    @Published var arrayOfTask = [String]()
+    @Published var arrayOfTask = [Task]()
 }
