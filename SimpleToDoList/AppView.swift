@@ -17,7 +17,10 @@ struct AppView: View {
             VStack {
                 List {
                     ForEach(data.arrayOfTask, id: \.self) { row in
-                        Text("\(row)")
+                        HStack {
+                            PriorityCirleView()
+                            Text("\(row)")
+                        }
                     }
                         .onDelete(perform: removeItems).animation(.default)
                 }
@@ -25,15 +28,17 @@ struct AppView: View {
                     .environment(\.horizontalSizeClass, .regular)
             }
                 .navigationBarTitle("Tasks")
-                .navigationBarItems(trailing: Button(action: {
-                        self.showViewTwo.toggle()
-                }) {
+                .navigationBarItems(leading: EditButton()
+                    , trailing: Button(action: {
+                            self.showViewTwo.toggle()
+                    }) {
                         Text("New task")
                         }.sheet(isPresented: $showViewTwo) {
                         ViewTwo(data: self.data, showViewTwo: self.$showViewTwo)
                     })
         }
     }
+
 
 
     func removeItems(at offset: IndexSet) {
@@ -59,21 +64,14 @@ struct ViewTwo: View {
         NavigationView {
             Form {
                 Section(header: Text("Add task information here")) {
-                    VStack {
-                        Section {
-                            TextField("Name", text: $newName)
-                        }
-                        /*
-                         This section will be implementated later on
-                         
-                        Section {
-                            TextField("Catergory", text: $newCatergory)
-                        }
-                        Section {
-                            TextField("Priority", text: $newPriorityLevel)
-                        }
-                         */
-                    }
+
+                    TextField("Name", text: $newName)
+                    /*
+                    This section will be implementated later on
+                    TextField("Catergory", text: $newCatergory)
+                    */
+                    TextField("Priority", text: $newPriorityLevel)
+
                 }
             }
                 .navigationBarTitle("New task details")
@@ -84,6 +82,14 @@ struct ViewTwo: View {
                             self.data.arrayOfTask.append(self.newName)
                     })
         }
+    }
+}
+
+struct PriorityCirleView: View {
+    var body: some View {
+        Circle()
+            .frame(width: 20, height: 20)
+            .foregroundColor(Color.green)
     }
 }
 
