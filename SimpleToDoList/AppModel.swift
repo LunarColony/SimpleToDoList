@@ -8,23 +8,6 @@
 
 import SwiftUI
 
-enum Catergory {
-    case work
-    case home
-    case family
-    case health
-    case bills
-}
-
-enum Priority {
-    case low
-    case medium
-    case high
-    case critical
-}
-
-
-
 class Model: ObservableObject {
     struct Task: Identifiable, Codable {
         static var uniqueID = 0
