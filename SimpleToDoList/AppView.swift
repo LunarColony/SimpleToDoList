@@ -11,17 +11,14 @@ import SwiftUI
 struct AppView: View {
     @ObservedObject var data = Model()
     var task = Model.Task()
-    let data2 = Model()
     @State var showViewTwo = false
-    func tester() {
-
-    }
+    @State var categoryTypes = ["Home", "Work", "Personal", "Business"]
 
     var body: some View {
         NavigationView {
             VStack {
                 List {
-                    ForEach(data.arrayOfTask, id: \.taskName) { task in
+                    ForEach(data.arrayOfTask) { task in
                         HStack {
                             if task.priority == 0 {
                                 PriorityGreen()
@@ -33,6 +30,9 @@ struct AppView: View {
                                 PriorityRed()
                             }
                             Text("\(task.taskName)")
+                            Spacer()
+                            Text("\(task.taskCategory)")
+                                .foregroundColor(Color.gray)
                         }
                     }
                         .onDelete(perform: removeItems).animation(.default)
@@ -69,29 +69,36 @@ struct AppView_Previews: PreviewProvider {
 struct ViewTwo: View {
     @State var data: Model
     @State var newName = ""
-    @State var newCatergory = ""
+    @State var newCategory = ""
     @State var newPriorityLevel = ""
 
     @State var defaultPriorityLevel = 1
     @State var priorityTypes = ["low", "medium", "high", "critical"]
 
+    @State var defaultCategorySelection = 2
+    @State var categoryTypes = ["Home", "Work", "Personal", "Business"]
 
     @Binding var showViewTwo: Bool
     var body: some View {
         NavigationView {
             Form {
                 Section(header: Text("Add task name")) {
-
                     TextField("Name", text: $newName)
-                    /*
-                        This section will be implementated later on
-                        TextField("Catergory", text: $newCatergory)
-                        */
                 }
                 Section(header: Text("Select task priority")) {
                     Picker("Priority Levels", selection: $defaultPriorityLevel) {
                         ForEach(0..<priorityTypes.count) {
                             Text(self.priorityTypes[$0])
+                        }
+                    }
+                        .pickerStyle(SegmentedPickerStyle())
+                }
+
+
+                Section(header: Text("Select a category")) {
+                    Picker("Catergories", selection: $defaultCategorySelection) {
+                        ForEach(0..<categoryTypes.count) {
+                            Text(self.categoryTypes[$0])
                         }
                     }
                         .pickerStyle(SegmentedPickerStyle())
@@ -104,6 +111,7 @@ struct ViewTwo: View {
                             self.showViewTwo.toggle()
                             task.taskName = self.newName
                             task.priority = self.defaultPriorityLevel
+                            task.taskCategory = self.categoryTypes[self.defaultCategorySelection]
                             self.data.arrayOfTask.append(task)
                     })
         }
