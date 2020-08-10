@@ -12,7 +12,8 @@ I literally spent hours and hours learning and trying to understand how to share
 - Seperated the model from the view.
 
 # Demo
-![Gif](https://user-images.githubusercontent.com/64978825/89781767-d8676780-db0b-11ea-8ed8-530aee971aef.gif)
+![Gif](https://user-images.githubusercontent.com/64978825/89781956-37c57780-db0c-11ea-8e20-522b772bf5b0.gif)
+
 
 
 
