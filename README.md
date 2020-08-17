@@ -21,4 +21,4 @@ I literally spent hours and hours learning and trying to understand how to share
 - [ ] Implement a search feature.
 - [ ] Implement time stamps for each task and task descriptions.
 - [ ] Implement sub-tasks within Parent task, this will inform the user the progression stage of the task 📊.
-- [ ] Re-Do entire code base as the structure doesn't follow a design pattern and debugging is incredibly fustrating.
+- [ ] Re-Do entire code base as the structure doesn't follow a design pattern and debugging is incredibly frustrating.
